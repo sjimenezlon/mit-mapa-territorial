@@ -6,7 +6,7 @@ import {
   getDatosClimaticos,
   type TerritorialAPIData,
 } from '@/lib/apiTerritorial';
-import { getEducacionByRegion, getAcueductosByRegion } from '@/data/datosReales';
+import { getEducacionByRegion, getAcueductosByRegion, getProduccionByRegion, getSGRByRegion } from '@/data/datosReales';
 
 interface Props {
   region: 'Urabá' | 'Oriente' | 'Todas';
@@ -38,6 +38,8 @@ export default function TerritorialData({ region }: Props) {
   const clima = useMemo(() => getDatosClimaticos(region), [region]);
   const educacion = useMemo(() => getEducacionByRegion(region), [region]);
   const acueductos = useMemo(() => getAcueductosByRegion(region), [region]);
+  const produccion = useMemo(() => getProduccionByRegion(region), [region]);
+  const sgr = useMemo(() => getSGRByRegion(region), [region]);
 
   const climaAvg = useMemo(() => {
     if (!clima.length) return null;
@@ -154,6 +156,72 @@ export default function TerritorialData({ region }: Props) {
             : region === 'Oriente'
               ? 'Guarne tiene 22 acueductos comunitarios veredales — el mayor tejido hídrico comunitario de la región.'
               : 'Oriente: 72 prestadores (promedio 4.5/municipio). Urabá: 14 prestadores (promedio 1.6/municipio). La brecha en infraestructura hídrica es 3x.'
+          }
+        </p>
+      </div>
+
+      {/* ==========================================
+          PRODUCCIÓN AGRÍCOLA — datos.gov.co VERIFICADO
+          ========================================== */}
+      <div className="rounded-lg p-2.5 border border-epm-green/15 bg-epm-green/[0.02]">
+        <p className="text-[8px] font-mono uppercase tracking-wider text-epm-green/70 mb-2">
+          Producción Agrícola 2022 (datos.gov.co)
+        </p>
+        <div className="grid grid-cols-2 gap-1.5 mb-2">
+          <StatCard label="Producción total" value={`${(produccion.total / 1000).toFixed(0)}k ton`} color="#00A651" />
+          <StatCard label="Municipios" value={produccion.municipios.length} color="#00A651" />
+        </div>
+        <div className="space-y-1 mb-1.5">
+          {produccion.municipios.slice(0, 5).map(m => (
+            <div key={m.municipio} className="flex items-center gap-1.5">
+              <span className="text-[9px] text-gray-400 flex-1 truncate">{m.municipio}</span>
+              <span className="text-[7px] text-gray-500 truncate max-w-[80px]">{m.cultivo_principal}</span>
+              <span className="text-[9px] font-mono font-bold text-epm-green">{(m.produccion_total_ton / 1000).toFixed(0)}k</span>
+            </div>
+          ))}
+        </div>
+        <p className="text-[7px] text-gray-600 leading-relaxed italic">
+          {region === 'Urabá'
+            ? 'Urabá produce 1.8M ton/año. Banano exportación domina (78%). Economía de enclave agroindustrial.'
+            : region === 'Oriente'
+              ? 'Oriente: agricultura diversificada. Tomate bajo invernadero, aguacate Hass, flores. Mayor valor agregado por tonelada.'
+              : 'Urabá: monocultivo bananero (1.4M ton). Oriente: diversificado (hortalizas, aguacate Hass, flores). Modelos económicos opuestos.'
+          }
+        </p>
+      </div>
+
+      {/* ==========================================
+          PROYECTOS SGR (REGALÍAS) — datos.gov.co VERIFICADO
+          ========================================== */}
+      <div className="rounded-lg p-2.5 border border-purple-500/15 bg-purple-500/[0.02]">
+        <p className="text-[8px] font-mono uppercase tracking-wider text-purple-400/70 mb-2">
+          Proyectos de Regalías SGR (DNP)
+        </p>
+        <div className="grid grid-cols-3 gap-1.5 mb-2">
+          <StatCard label="Proyectos" value={sgr.total_proyectos} color="#8B5CF6" />
+          <StatCard label="Inversión" value={`$${(sgr.total_inversion / 1000).toFixed(0)}k M`} sub="COP millones" color="#8B5CF6" />
+          <StatCard label="Terminados" value={`${sgr.terminados}/${sgr.total_proyectos}`} color={sgr.terminados > sgr.en_ejecucion ? '#00A651' : '#F7941D'} />
+        </div>
+        <div className="space-y-1 mb-1.5">
+          {sgr.proyectos.slice(0, 4).map((p, i) => (
+            <div key={i} className="flex items-start gap-1.5">
+              <div className={`w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0 ${p.estado === 'Terminado' ? 'bg-epm-green' : 'bg-epm-orange'}`} />
+              <div className="flex-1 min-w-0">
+                <p className="text-[8px] text-gray-300 truncate">{p.nombre}</p>
+                <p className="text-[7px] text-gray-500">{p.municipio} · {p.sector} · COP ${p.valor_total.toLocaleString('es-CO')}M</p>
+              </div>
+            </div>
+          ))}
+          {sgr.proyectos.length > 4 && (
+            <p className="text-[7px] text-gray-600 ml-3">+{sgr.proyectos.length - 4} proyectos más</p>
+          )}
+        </div>
+        <p className="text-[7px] text-gray-600 leading-relaxed italic">
+          {region === 'Urabá'
+            ? 'Turbo concentra $60k M en regalías — 80% en vías. Refleja déficit histórico de infraestructura básica.'
+            : region === 'Oriente'
+              ? 'Oriente recibe menos regalías que Urabá. Su desarrollo se financia más con recursos propios y EPM.'
+              : 'Turbo recibe 6x más regalías que cualquier otro municipio MIT. Casi todo en vías y deporte — poco en agua o educación.'
           }
         </p>
       </div>

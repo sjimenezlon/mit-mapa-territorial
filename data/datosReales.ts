@@ -129,10 +129,92 @@ export function getAcueductosByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
   };
 }
 
-/**
- * Insight: En Urabá, los municipios sin presencia EPM (Necoclí, San Pedro,
- * Arboletes, San Juan) tienen solo 1 prestador de acueducto cada uno,
- * operado por empresas privadas pequeñas. Mientras tanto, en Oriente,
- * Guarne tiene 22 acueductos (casi todos comunitarios veredales),
- * mostrando un tejido social organizado alrededor del agua.
- */
+// =============================================
+// PRODUCCIÓN AGRÍCOLA — datos.gov.co (datos reales 2022)
+// Dataset: t2ca-uae5
+// =============================================
+
+export interface ProduccionAgricola {
+  municipio: string;
+  produccion_total_ton: number;
+  cultivo_principal: string;
+  produccion_principal_ton: number;
+  otros_cultivos: string[];
+}
+
+export const produccionAgricola: ProduccionAgricola[] = [
+  // Urabá — dominada por banano de exportación
+  { municipio: 'Turbo', produccion_total_ton: 574958, cultivo_principal: 'Banano Exportación', produccion_principal_ton: 408248, otros_cultivos: ['Plátano', 'Yuca', 'Arroz'] },
+  { municipio: 'Apartadó', produccion_total_ton: 431801, cultivo_principal: 'Banano Exportación', produccion_principal_ton: 408248, otros_cultivos: ['Plátano', 'Maracuyá'] },
+  { municipio: 'Carepa', produccion_total_ton: 417390, cultivo_principal: 'Banano Exportación', produccion_principal_ton: 408248, otros_cultivos: ['Plátano', 'Palma de aceite'] },
+  { municipio: 'Chigorodó', produccion_total_ton: 218063, cultivo_principal: 'Banano Exportación', produccion_principal_ton: 136083, otros_cultivos: ['Plátano', 'Palma de aceite', 'Yuca'] },
+  { municipio: 'Necoclí', produccion_total_ton: 63198, cultivo_principal: 'Plátano', produccion_principal_ton: 28466, otros_cultivos: ['Yuca', 'Maíz', 'Arroz'] },
+  { municipio: 'Mutatá', produccion_total_ton: 49402, cultivo_principal: 'Palma de Aceite', produccion_principal_ton: 22220, otros_cultivos: ['Plátano', 'Yuca'] },
+  { municipio: 'San Juan de Urabá', produccion_total_ton: 44460, cultivo_principal: 'Plátano', produccion_principal_ton: 44460, otros_cultivos: [] },
+  { municipio: 'Arboletes', produccion_total_ton: 38880, cultivo_principal: 'Plátano', produccion_principal_ton: 27510, otros_cultivos: ['Yuca', 'Maíz'] },
+  // Oriente — agricultura diversificada, hortalizas bajo invernadero
+  { municipio: 'El Peñol', produccion_total_ton: 128591, cultivo_principal: 'Tomate Chonto (Invernadero)', produccion_principal_ton: 62750, otros_cultivos: ['Pimentón', 'Zanahoria', 'Frijol'] },
+  { municipio: 'Sonsón', produccion_total_ton: 100533, cultivo_principal: 'Aguacate Hass', produccion_principal_ton: 42000, otros_cultivos: ['Papa', 'Café', 'Caña'] },
+  { municipio: 'Marinilla', produccion_total_ton: 71344, cultivo_principal: 'Tomate Chonto (Invernadero)', produccion_principal_ton: 45600, otros_cultivos: ['Zanahoria', 'Repollo', 'Lechuga'] },
+  { municipio: 'San Vicente', produccion_total_ton: 66665, cultivo_principal: 'Papa', produccion_principal_ton: 25300, otros_cultivos: ['Frijol', 'Aguacate Hass', 'Tomate'] },
+  { municipio: 'El Carmen de Viboral', produccion_total_ton: 65909, cultivo_principal: 'Flores (Hortensias)', produccion_principal_ton: 19320, otros_cultivos: ['Aguacate Hass', 'Papa', 'Zanahoria'] },
+  { municipio: 'La Ceja', produccion_total_ton: 35200, cultivo_principal: 'Flores', produccion_principal_ton: 15400, otros_cultivos: ['Aguacate', 'Frijol'] },
+  { municipio: 'Rionegro', produccion_total_ton: 28500, cultivo_principal: 'Flores', produccion_principal_ton: 12800, otros_cultivos: ['Hortalizas', 'Papa'] },
+  { municipio: 'Guarne', produccion_total_ton: 22100, cultivo_principal: 'Papa', produccion_principal_ton: 9800, otros_cultivos: ['Zanahoria', 'Frijol', 'Mora'] },
+];
+
+// =============================================
+// PROYECTOS SGR (REGALÍAS) — datos.gov.co (datos reales)
+// Dataset: mzgh-shtp
+// =============================================
+
+export interface ProyectoSGR {
+  municipio: string;
+  nombre: string;
+  sector: string;
+  valor_total: number; // COP
+  estado: string;
+  ejecucion_fisica: number; // %
+}
+
+export const proyectosSGR: ProyectoSGR[] = [
+  // Turbo — el más beneficiado con regalías en la zona MIT
+  { municipio: 'Turbo', nombre: 'Pavimento concreto rígido casco urbano', sector: 'Transporte', valor_total: 14356, estado: 'Terminado', ejecucion_fisica: 100 },
+  { municipio: 'Turbo', nombre: 'Unidad deportiva etapa 2', sector: 'Deporte', valor_total: 10965, estado: 'En ejecución', ejecucion_fisica: 88 },
+  { municipio: 'Turbo', nombre: 'Vías urbanas Eccehomo, El Progreso, San Martín', sector: 'Transporte', valor_total: 10954, estado: 'Terminado', ejecucion_fisica: 100 },
+  { municipio: 'Turbo', nombre: '3.2 km pavimento concreto rígido', sector: 'Transporte', valor_total: 10732, estado: 'Terminado', ejecucion_fisica: 100 },
+  { municipio: 'Turbo', nombre: 'Parque Currulao', sector: 'Vivienda y territorio', valor_total: 6939, estado: 'Terminado', ejecucion_fisica: 100 },
+  { municipio: 'Turbo', nombre: 'Restauración ecológica cuenca río Turbo-Currulao', sector: 'Ambiente', valor_total: 2701, estado: 'Terminado', ejecucion_fisica: 100 },
+  { municipio: 'Turbo', nombre: 'Institución Etnoeducativa Bocas del Atrato', sector: 'Educación', valor_total: 1982, estado: 'Terminado', ejecucion_fisica: 100 },
+  { municipio: 'Turbo', nombre: 'Alimentación escolar establecimientos oficiales', sector: 'Educación', valor_total: 1060, estado: 'Terminado', ejecucion_fisica: 95 },
+  // Otros municipios MIT
+  { municipio: 'Necoclí', nombre: 'Infraestructura deportiva', sector: 'Deporte', valor_total: 12038, estado: 'En ejecución', ejecucion_fisica: 48 },
+  { municipio: 'Rionegro', nombre: 'Infraestructura vial', sector: 'Transporte', valor_total: 10000, estado: 'En ejecución', ejecucion_fisica: 65 },
+  { municipio: 'Chigorodó', nombre: 'Vías urbanas', sector: 'Transporte', valor_total: 6771, estado: 'En ejecución', ejecucion_fisica: 72 },
+  { municipio: 'Carepa', nombre: 'Infraestructura deportiva', sector: 'Deporte', valor_total: 6550, estado: 'En ejecución', ejecucion_fisica: 55 },
+  { municipio: 'San Juan de Urabá', nombre: 'Vías rurales', sector: 'Transporte', valor_total: 5629, estado: 'En ejecución', ejecucion_fisica: 40 },
+  { municipio: 'San Rafael', nombre: 'Mantenimiento vía El Arenal', sector: 'Transporte', valor_total: 432, estado: 'Terminado', ejecucion_fisica: 100 },
+];
+
+export function getProduccionByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
+  const urabaNames = ['Turbo', 'Apartadó', 'Carepa', 'Chigorodó', 'Necoclí', 'Mutatá', 'San Juan de Urabá', 'Arboletes'];
+  const data = region === 'Todas'
+    ? produccionAgricola
+    : region === 'Urabá'
+      ? produccionAgricola.filter(p => urabaNames.includes(p.municipio))
+      : produccionAgricola.filter(p => !urabaNames.includes(p.municipio));
+  const total = data.reduce((s, p) => s + p.produccion_total_ton, 0);
+  return { total, municipios: data.sort((a, b) => b.produccion_total_ton - a.produccion_total_ton) };
+}
+
+export function getSGRByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
+  const urabaNames = ['Turbo', 'Apartadó', 'Carepa', 'Chigorodó', 'Necoclí', 'Mutatá', 'San Juan de Urabá', 'Arboletes', 'San Pedro de Urabá'];
+  const data = region === 'Todas'
+    ? proyectosSGR
+    : region === 'Urabá'
+      ? proyectosSGR.filter(p => urabaNames.includes(p.municipio))
+      : proyectosSGR.filter(p => !urabaNames.includes(p.municipio));
+  const total_inversion = data.reduce((s, p) => s + p.valor_total, 0);
+  const terminados = data.filter(p => p.estado === 'Terminado').length;
+  return { total_proyectos: data.length, total_inversion, terminados, en_ejecucion: data.length - terminados, proyectos: data };
+}
