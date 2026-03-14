@@ -40,12 +40,12 @@ export interface EnvLayer {
   category: 'terreno' | 'agua' | 'vegetacion' | 'clima';
 }
 
-// URLs verificadas con curl — todas retornan HTTP 200 (marzo 2026)
+// URLs verificadas con curl HTTP 200 — marzo 2026
 export const ENV_LAYERS: EnvLayer[] = [
   {
     id: 'relieve',
     name: 'Relieve topográfico',
-    description: 'Elevación y curvas de nivel — muestra la diferencia Urabá (2m) vs Oriente (2100m)',
+    description: 'Curvas de nivel — Urabá 2m vs Oriente 2100m',
     url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
     attribution: '&copy; OpenTopoMap',
     opacity: 0.55,
@@ -54,8 +54,8 @@ export const ENV_LAYERS: EnvLayer[] = [
   },
   {
     id: 'hillshade',
-    name: 'Sombreado de relieve',
-    description: 'ESRI World Hillshade — topografía 3D del terreno para visualizar montañas y valles',
+    name: 'Sombreado 3D',
+    description: 'ESRI Hillshade — relieve tridimensional de montañas y valles',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri Hillshade',
     opacity: 0.5,
@@ -64,8 +64,8 @@ export const ENV_LAYERS: EnvLayer[] = [
   },
   {
     id: 'hidro',
-    name: 'Mapa físico (ríos y cuencas)',
-    description: 'ESRI World Physical — ríos, embalses y cuencas para contexto hídrico',
+    name: 'Ríos y cuencas',
+    description: 'ESRI Physical — hidrografía, embalses y relieve natural',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri World Physical',
     opacity: 0.45,
@@ -73,19 +73,29 @@ export const ENV_LAYERS: EnvLayer[] = [
     category: 'agua',
   },
   {
-    id: 'natgeo',
-    name: 'National Geographic',
-    description: 'ESRI NatGeo World Map — mapa estilo National Geographic con vegetación y uso del suelo',
-    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}',
-    attribution: '&copy; Esri NatGeo',
+    id: 'sentinel2',
+    name: 'Sentinel-2 sin nubes',
+    description: 'ESA Sentinel-2 cloudless 2021 — cobertura vegetal real desde satélite europeo',
+    url: 'https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2021_3857/default/GoogleMapsCompatible/{z}/{y}/{x}.jpg',
+    attribution: '&copy; ESA Sentinel-2 cloudless by EOX',
     opacity: 0.5,
     color: '#22c55e',
     category: 'vegetacion',
   },
   {
+    id: 'viirs_hoy',
+    name: 'Satélite NASA hoy',
+    description: 'NASA VIIRS imagen diaria más reciente — estado actual del territorio',
+    url: 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/2026-03-12/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg',
+    attribution: '&copy; NASA GIBS VIIRS 2026-03-12',
+    opacity: 0.6,
+    color: '#06b6d4',
+    category: 'vegetacion',
+  },
+  {
     id: 'luces',
-    name: 'Luces nocturnas (NASA)',
-    description: 'NASA VIIRS Black Marble — muestra dónde hay y NO hay electrificación',
+    name: 'Luces nocturnas',
+    description: 'NASA VIIRS Black Marble — electrificación visible desde el espacio',
     url: 'https://gitc.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_CityLights_2012/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg',
     attribution: '&copy; NASA Earth Observatory',
     opacity: 0.7,
@@ -94,10 +104,10 @@ export const ENV_LAYERS: EnvLayer[] = [
   },
   {
     id: 'nightband',
-    name: 'Radiancia nocturna (NASA)',
-    description: 'NASA VIIRS Day/Night Band — radiancia real nocturna detectada por satélite',
-    url: 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_At_Sensor_Radiance/default/2024-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png',
-    attribution: '&copy; NASA GIBS VIIRS',
+    name: 'Radiancia nocturna mar-2026',
+    description: 'NASA VIIRS Night Band — radiancia nocturna real de marzo 2026',
+    url: 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_At_Sensor_Radiance/default/2026-03-10/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png',
+    attribution: '&copy; NASA GIBS VIIRS mar-2026',
     opacity: 0.6,
     color: '#a78bfa',
     category: 'clima',

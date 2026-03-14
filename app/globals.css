@@ -237,12 +237,22 @@ body {
   filter: saturate(0.5) brightness(0.9);
 }
 
-/* ESRI NatGeo — vegetation + cultural features */
-.map-mode-dark .env-layer-natgeo {
+/* Sentinel-2 cloudless — real satellite vegetation */
+.map-mode-dark .env-layer-sentinel2 {
   mix-blend-mode: soft-light;
-  filter: saturate(0.5) brightness(0.8);
+  filter: saturate(0.6) brightness(0.8);
 }
-.map-mode-light .env-layer-natgeo {
+.map-mode-light .env-layer-sentinel2 {
+  mix-blend-mode: multiply;
+  filter: saturate(0.8);
+}
+
+/* NASA VIIRS daily imagery */
+.map-mode-dark .env-layer-viirs_hoy {
+  mix-blend-mode: soft-light;
+  filter: saturate(0.5) brightness(0.75) contrast(1.1);
+}
+.map-mode-light .env-layer-viirs_hoy {
   mix-blend-mode: multiply;
   filter: saturate(0.7);
 }
