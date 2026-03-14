@@ -40,6 +40,7 @@ export interface EnvLayer {
   category: 'terreno' | 'agua' | 'vegetacion' | 'clima';
 }
 
+// URLs verificadas con curl — todas retornan HTTP 200 (marzo 2026)
 export const ENV_LAYERS: EnvLayer[] = [
   {
     id: 'relieve',
@@ -52,9 +53,19 @@ export const ENV_LAYERS: EnvLayer[] = [
     category: 'terreno',
   },
   {
+    id: 'hillshade',
+    name: 'Sombreado de relieve',
+    description: 'ESRI World Hillshade — topografía 3D del terreno para visualizar montañas y valles',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}',
+    attribution: '&copy; Esri Hillshade',
+    opacity: 0.5,
+    color: '#78716c',
+    category: 'terreno',
+  },
+  {
     id: 'hidro',
-    name: 'Cuerpos de agua',
-    description: 'Ríos, embalses y cuencas — contexto para proyectos de acueducto y protección hídrica',
+    name: 'Mapa físico (ríos y cuencas)',
+    description: 'ESRI World Physical — ríos, embalses y cuencas para contexto hídrico',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri World Physical',
     opacity: 0.45,
@@ -62,11 +73,11 @@ export const ENV_LAYERS: EnvLayer[] = [
     category: 'agua',
   },
   {
-    id: 'vegetacion',
-    name: 'Cobertura vegetal',
-    description: 'Vegetación y uso del suelo — identifica bosques y zonas de deforestación',
-    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}',
-    attribution: '&copy; Esri World Terrain',
+    id: 'natgeo',
+    name: 'National Geographic',
+    description: 'ESRI NatGeo World Map — mapa estilo National Geographic con vegetación y uso del suelo',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}',
+    attribution: '&copy; Esri NatGeo',
     opacity: 0.5,
     color: '#22c55e',
     category: 'vegetacion',
@@ -74,21 +85,21 @@ export const ENV_LAYERS: EnvLayer[] = [
   {
     id: 'luces',
     name: 'Luces nocturnas (NASA)',
-    description: 'NASA Black Marble VIIRS — muestra dónde hay y NO hay electrificación',
-    url: 'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/VIIRS_CityLights_2012/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg',
+    description: 'NASA VIIRS Black Marble — muestra dónde hay y NO hay electrificación',
+    url: 'https://gitc.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_CityLights_2012/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg',
     attribution: '&copy; NASA Earth Observatory',
     opacity: 0.7,
     color: '#fbbf24',
     category: 'clima',
   },
   {
-    id: 'temp',
-    name: 'Temperatura superficial',
-    description: 'MODIS Land Surface Temperature — islas de calor y gradientes térmicos',
-    url: 'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/MODIS_Terra_Land_Surface_Temp_Day/default/2024-01-15/GoogleMapsCompatible_Level7/{z}/{y}/{x}.png',
-    attribution: '&copy; NASA MODIS',
-    opacity: 0.45,
-    color: '#ef4444',
+    id: 'nightband',
+    name: 'Radiancia nocturna (NASA)',
+    description: 'NASA VIIRS Day/Night Band — radiancia real nocturna detectada por satélite',
+    url: 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_At_Sensor_Radiance/default/2024-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png',
+    attribution: '&copy; NASA GIBS VIIRS',
+    opacity: 0.6,
+    color: '#a78bfa',
     category: 'clima',
   },
 ];

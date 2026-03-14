@@ -207,9 +207,10 @@ body {
 /* ============================================
    ENVIRONMENTAL OVERLAY LAYERS
    Blend modes for NASA/ESRI overlays on dark map
+   All tile URLs verified with HTTP 200 (marzo 2026)
    ============================================ */
 
-/* Topo relief blends with multiply to keep dark feel */
+/* OpenTopoMap relief */
 .map-mode-dark .env-layer-relieve,
 .map-mode-satellite .env-layer-relieve {
   mix-blend-mode: soft-light;
@@ -220,19 +221,33 @@ body {
   filter: saturate(0.8);
 }
 
-/* Water/hydro blends with screen to glow blue on dark */
+/* ESRI Hillshade — subtle 3D terrain */
+.map-mode-dark .env-layer-hillshade {
+  mix-blend-mode: overlay;
+  filter: brightness(0.7) contrast(1.3);
+}
+.map-mode-light .env-layer-hillshade {
+  mix-blend-mode: multiply;
+  filter: brightness(1.1);
+}
+
+/* ESRI Physical Map — rivers and water bodies */
 .map-mode-dark .env-layer-hidro {
   mix-blend-mode: soft-light;
   filter: saturate(0.5) brightness(0.9);
 }
 
-/* Vegetation gets a green tint overlay */
-.map-mode-dark .env-layer-vegetacion {
+/* ESRI NatGeo — vegetation + cultural features */
+.map-mode-dark .env-layer-natgeo {
   mix-blend-mode: soft-light;
   filter: saturate(0.5) brightness(0.8);
 }
+.map-mode-light .env-layer-natgeo {
+  mix-blend-mode: multiply;
+  filter: saturate(0.7);
+}
 
-/* NASA night lights glow brilliantly on dark mode */
+/* NASA VIIRS City Lights — glow on dark */
 .map-mode-dark .env-layer-luces,
 .map-mode-satellite .env-layer-luces {
   mix-blend-mode: screen;
@@ -240,13 +255,17 @@ body {
 }
 .map-mode-light .env-layer-luces {
   mix-blend-mode: multiply;
-  filter: brightness(0.8) saturate(1.5);
+  filter: brightness(0.7) saturate(1.5);
 }
 
-/* Temperature uses warm blend */
-.map-mode-dark .env-layer-temp {
+/* NASA VIIRS Day/Night Band */
+.map-mode-dark .env-layer-nightband,
+.map-mode-satellite .env-layer-nightband {
   mix-blend-mode: screen;
-  filter: saturate(1.2) brightness(0.8);
+  filter: brightness(1.5) contrast(1.8);
+}
+.map-mode-light .env-layer-nightband {
+  mix-blend-mode: multiply;
 }
 
 /* Gradient border */
