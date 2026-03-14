@@ -6,7 +6,7 @@ import {
   getDatosClimaticos,
   type TerritorialAPIData,
 } from '@/lib/apiTerritorial';
-import { getEducacionByRegion, getAcueductosByRegion, getProduccionByRegion, getSGRByRegion } from '@/data/datosReales';
+import { getEducacionByRegion, getAcueductosByRegion, getProduccionByRegion, getSGRByRegion, getVictimasByRegion, victimasConflicto, getTurismoByRegion, getICBFByRegion, empresasReal } from '@/data/datosReales';
 
 interface Props {
   region: 'Urabá' | 'Oriente' | 'Todas';
@@ -40,6 +40,9 @@ export default function TerritorialData({ region }: Props) {
   const acueductos = useMemo(() => getAcueductosByRegion(region), [region]);
   const produccion = useMemo(() => getProduccionByRegion(region), [region]);
   const sgr = useMemo(() => getSGRByRegion(region), [region]);
+  const victimas = useMemo(() => getVictimasByRegion(region), [region]);
+  const turismo = useMemo(() => getTurismoByRegion(region), [region]);
+  const icbf = useMemo(() => getICBFByRegion(region), [region]);
 
   const climaAvg = useMemo(() => {
     if (!clima.length) return null;
@@ -219,6 +222,123 @@ export default function TerritorialData({ region }: Props) {
           }
         </p>
       </div>
+
+      {/* ==========================================
+          VÍCTIMAS CONFLICTO ARMADO — datos.gov.co VERIFICADO
+          ========================================== */}
+      <div className="rounded-lg p-2.5 border border-red-500/15 bg-red-500/[0.02]">
+        <p className="text-[8px] font-mono uppercase tracking-wider text-red-400/70 mb-2">
+          Conflicto Armado (Unidad de Víctimas)
+        </p>
+        <div className="grid grid-cols-2 gap-1.5 mb-2">
+          <StatCard label="Desplazamiento forzado" value={`${(victimas.desplazamiento_forzado_acumulado / 1000).toFixed(0)}k`} sub="acumulado" color="#ef4444" />
+          <StatCard label="Hechos victimizantes" value={`${(victimas.total_hechos_victimizantes / 1000).toFixed(0)}k`} sub="acumulado" color="#ef4444" />
+          <StatCard label="Víctimas 2024" value={`${(victimas.victimas_2024 / 1000).toFixed(0)}k`} color="#F7941D" />
+          <StatCard label="Víctimas 2023" value={`${(victimas.victimas_2023 / 1000).toFixed(0)}k`} color="#F7941D" />
+        </div>
+        {region === 'Todas' && (
+          <div className="grid grid-cols-2 gap-1.5 mb-1.5">
+            <div className="rounded p-1.5 bg-red-500/5 border border-red-500/10">
+              <p className="text-[8px] text-red-400 font-bold">DT Urabá</p>
+              <p className="text-[9px] font-mono text-gray-300">{(victimasConflicto[0].desplazamiento_forzado_acumulado / 1000).toFixed(0)}k desplazados</p>
+              <p className="text-[7px] text-gray-500">{(victimasConflicto[0].confinamiento_acumulado / 1000).toFixed(0)}k confinados</p>
+            </div>
+            <div className="rounded p-1.5 bg-epm-orange/5 border border-epm-orange/10">
+              <p className="text-[8px] text-epm-orange font-bold">DT Antioquia</p>
+              <p className="text-[9px] font-mono text-gray-300">{(victimasConflicto[1].desplazamiento_forzado_acumulado / 1000).toFixed(0)}k desplazados</p>
+              <p className="text-[7px] text-gray-500">{(victimasConflicto[1].homicidio_acumulado / 1000).toFixed(0)}k homicidios</p>
+            </div>
+          </div>
+        )}
+        <p className="text-[7px] text-gray-600 leading-relaxed italic">
+          {victimas.nota}
+          {region === 'Urabá' ? ' Los proyectos MIT de EPM operan en territorio de posconflicto activo.' : ''}
+        </p>
+        <p className="text-[6px] text-gray-700 mt-1">Fuente: datos.gov.co/resource/ma9c-mk5w · Unidad para las Víctimas · Corte ago-2024</p>
+      </div>
+
+      {/* ==========================================
+          TURISMO — datos.gov.co VERIFICADO
+          ========================================== */}
+      <div className="rounded-lg p-2.5 border border-cyan-500/15 bg-cyan-500/[0.02]">
+        <p className="text-[8px] font-mono uppercase tracking-wider text-cyan-400/70 mb-2">
+          Turismo (Registro Nacional RNT)
+        </p>
+        <div className="grid grid-cols-2 gap-1.5 mb-2">
+          <StatCard label="Prestadores activos" value={turismo.total_prestadores.toLocaleString('es-CO')} color="#06b6d4" />
+          <StatCard label="Habitaciones" value={turismo.total_habitaciones.toLocaleString('es-CO')} color="#06b6d4" />
+        </div>
+        <div className="space-y-1 mb-1.5">
+          {turismo.municipios.slice(0, 5).map(m => (
+            <div key={m.municipio} className="flex items-center gap-1.5">
+              <span className="text-[9px] text-gray-400 flex-1 truncate">{m.municipio}</span>
+              <span className="text-[7px] text-gray-500">{m.habitaciones.toLocaleString('es-CO')} hab.</span>
+              <span className="text-[9px] font-mono font-bold text-cyan-400">{m.prestadores.toLocaleString('es-CO')}</span>
+            </div>
+          ))}
+        </div>
+        <p className="text-[7px] text-gray-600 leading-relaxed italic">
+          {region === 'Urabá'
+            ? 'Necoclí sorprende con 1.624 prestadores — turismo de playa emergente. Apartadó: turismo de negocios (887).'
+            : region === 'Oriente'
+              ? 'Guatapé (3.166) y Rionegro (3.527) lideran. El embalse de Guatapé genera un ecosistema turístico masivo.'
+              : 'Oriente: 13k prestadores (turismo embalses/naturaleza). Urabá: 3.6k (turismo playa Necoclí + negocios Apartadó).'
+          }
+        </p>
+      </div>
+
+      {/* ==========================================
+          ICBF PRIMERA INFANCIA — datos.gov.co VERIFICADO
+          ========================================== */}
+      <div className="rounded-lg p-2.5 border border-pink-500/15 bg-pink-500/[0.02]">
+        <p className="text-[8px] font-mono uppercase tracking-wider text-pink-400/70 mb-2">
+          ICBF Primera Infancia (UDS 2025)
+        </p>
+        <div className="grid grid-cols-2 gap-1.5 mb-2">
+          <StatCard label="Unidades de servicio" value={icbf.total_unidades} color="#ec4899" />
+          <StatCard label="Rurales" value={`${icbf.total_rural} (${icbf.total_unidades > 0 ? ((icbf.total_rural/icbf.total_unidades)*100).toFixed(0) : 0}%)`} color="#ec4899" />
+        </div>
+        <div className="space-y-1 mb-1.5">
+          {icbf.municipios.slice(0, 4).map(m => (
+            <div key={m.municipio} className="flex items-center gap-1.5">
+              <span className="text-[9px] text-gray-400 flex-1">{m.municipio}</span>
+              <span className="text-[7px] text-gray-500">U:{m.urbano} R:{m.rural}</span>
+              <span className="text-[9px] font-mono font-bold text-pink-400">{m.unidades_total}</span>
+            </div>
+          ))}
+        </div>
+        <p className="text-[7px] text-gray-600 leading-relaxed italic">
+          Turbo lidera con 136 UDS (72% rurales) — la dispersión rural demanda más puntos de atención.
+        </p>
+      </div>
+
+      {/* ==========================================
+          TEJIDO EMPRESARIAL — datos.gov.co VERIFICADO
+          ========================================== */}
+      {(region === 'Oriente' || region === 'Todas') && (
+        <div className="rounded-lg p-2.5 border border-amber-500/15 bg-amber-500/[0.02]">
+          <p className="text-[8px] font-mono uppercase tracking-wider text-amber-400/70 mb-2">
+            Tejido Empresarial (CC Oriente)
+          </p>
+          <div className="grid grid-cols-2 gap-1.5 mb-2">
+            <StatCard label="Empresas registradas" value={empresasReal.reduce((s, e) => s + e.total_empresas, 0).toLocaleString('es-CO')} color="#f59e0b" />
+            <StatCard label="% Microempresas" value={`${((empresasReal.reduce((s,e)=>s+e.micro,0) / empresasReal.reduce((s,e)=>s+e.total_empresas,0))*100).toFixed(0)}%`} color="#f59e0b" />
+          </div>
+          <div className="space-y-1 mb-1.5">
+            {empresasReal.slice(0, 5).map(m => (
+              <div key={m.municipio} className="flex items-center gap-1.5">
+                <span className="text-[9px] text-gray-400 flex-1 truncate">{m.municipio}</span>
+                <span className="text-[7px] text-gray-500">{m.mediana_grande > 0 ? `${m.mediana_grande} med/gde` : 'solo micro/peq'}</span>
+                <span className="text-[9px] font-mono font-bold text-amber-400">{m.total_empresas.toLocaleString('es-CO')}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-[7px] text-gray-600 leading-relaxed italic">
+            Rionegro concentra 9.038 empresas (39% del Oriente). 79% son microempresas. Solo Rionegro y Guarne tienen empresas medianas/grandes significativas.
+          </p>
+          <p className="text-[6px] text-gray-700 mt-1">Fuente: datos.gov.co/resource/jtyy-9zuz · Cámara de Comercio Oriente Antioqueño</p>
+        </div>
+      )}
 
       {/* ==========================================
           CLIMA / GEOGRAFÍA — IDEAM

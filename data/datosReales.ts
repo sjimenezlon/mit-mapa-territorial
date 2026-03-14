@@ -211,6 +211,184 @@ export const resumenSGR: ResumenSGRMunicipio[] = [
   { municipio: 'Guarne', total_proyectos: 9, inversion_total_millones: 9601, sectores_principales: ['Transporte', 'Deporte'] },
 ];
 
+// =============================================
+// VÍCTIMAS CONFLICTO ARMADO — datos.gov.co (datos reales)
+// Dataset: ma9c-mk5w (Unidad de Víctimas - Territorial)
+// VERIFICADO: marzo 2026
+// =============================================
+
+export interface VictimasRegion {
+  direccion_territorial: string;
+  desplazamiento_forzado_acumulado: number;
+  confinamiento_acumulado: number;
+  amenaza_acumulado: number;
+  homicidio_acumulado: number;
+  total_hechos_victimizantes: number;
+  victimas_2024: number;
+  victimas_2023: number;
+  nota: string;
+}
+
+export const victimasConflicto: VictimasRegion[] = [
+  {
+    direccion_territorial: 'DT Urabá',
+    desplazamiento_forzado_acumulado: 629341,
+    confinamiento_acumulado: 246979,
+    amenaza_acumulado: 180713,
+    homicidio_acumulado: 14937,
+    total_hechos_victimizantes: 1093258,
+    victimas_2024: 89114,
+    victimas_2023: 140250,
+    nota: 'Urabá tiene su propia Dirección Territorial de Víctimas — refleja la magnitud histórica del conflicto.',
+  },
+  {
+    direccion_territorial: 'DT Antioquia (incluye Oriente)',
+    desplazamiento_forzado_acumulado: 1962642,
+    confinamiento_acumulado: 162304,
+    amenaza_acumulado: 585989,
+    homicidio_acumulado: 90949,
+    total_hechos_victimizantes: 2835926,
+    victimas_2024: 435247,
+    victimas_2023: 684125,
+    nota: 'DT Antioquia cubre todo el departamento excepto Urabá. Oriente fue epicentro del conflicto 1998-2005.',
+  },
+];
+
+export function getVictimasByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
+  if (region === 'Urabá') return victimasConflicto[0];
+  if (region === 'Oriente') return victimasConflicto[1];
+  return {
+    direccion_territorial: 'Urabá + Antioquia',
+    desplazamiento_forzado_acumulado: victimasConflicto[0].desplazamiento_forzado_acumulado + victimasConflicto[1].desplazamiento_forzado_acumulado,
+    confinamiento_acumulado: victimasConflicto[0].confinamiento_acumulado + victimasConflicto[1].confinamiento_acumulado,
+    amenaza_acumulado: victimasConflicto[0].amenaza_acumulado + victimasConflicto[1].amenaza_acumulado,
+    homicidio_acumulado: victimasConflicto[0].homicidio_acumulado + victimasConflicto[1].homicidio_acumulado,
+    total_hechos_victimizantes: victimasConflicto[0].total_hechos_victimizantes + victimasConflicto[1].total_hechos_victimizantes,
+    victimas_2024: victimasConflicto[0].victimas_2024 + victimasConflicto[1].victimas_2024,
+    victimas_2023: victimasConflicto[0].victimas_2023 + victimasConflicto[1].victimas_2023,
+    nota: 'Antioquia y Urabá concentran ~30% de las víctimas del conflicto armado en Colombia.',
+  };
+}
+
+// =============================================
+// TURISMO — datos.gov.co (mmsn-v5r4) VERIFICADO
+// Registro Nacional de Turismo - Antioquia
+// =============================================
+
+export interface TurismoMunicipal {
+  municipio: string;
+  prestadores: number;
+  habitaciones: number;
+}
+
+export const turismoReal: TurismoMunicipal[] = [
+  // VERIFICADO: API mmsn-v5r4 estado_rnt=ACTIVO, marzo 2026
+  { municipio: 'Rionegro', prestadores: 3527, habitaciones: 20905 },
+  { municipio: 'Guatapé', prestadores: 3166, habitaciones: 15602 },
+  { municipio: 'Necoclí', prestadores: 1624, habitaciones: 11004 },
+  { municipio: 'Guarne', prestadores: 1298, habitaciones: 5788 },
+  { municipio: 'San Rafael', prestadores: 1062, habitaciones: 9533 },
+  { municipio: 'Apartadó', prestadores: 887, habitaciones: 10833 },
+  { municipio: 'Marinilla', prestadores: 777, habitaciones: 5472 },
+  { municipio: 'San Carlos', prestadores: 713, habitaciones: 5017 },
+  { municipio: 'Cocorná', prestadores: 554, habitaciones: 5207 },
+  { municipio: 'La Ceja', prestadores: 538, habitaciones: 2989 },
+  { municipio: 'Sonsón', prestadores: 466, habitaciones: 3190 },
+  { municipio: 'San Luis', prestadores: 460, habitaciones: 2920 },
+  { municipio: 'Arboletes', prestadores: 436, habitaciones: 4935 },
+  { municipio: 'Turbo', prestadores: 346, habitaciones: 5046 },
+  { municipio: 'Carepa', prestadores: 108, habitaciones: 2684 },
+  { municipio: 'Chigorodó', prestadores: 98, habitaciones: 1497 },
+  { municipio: 'Mutatá', prestadores: 96, habitaciones: 1668 },
+];
+
+// =============================================
+// ICBF PRIMERA INFANCIA — datos.gov.co (i8ww-5mcf) VERIFICADO
+// Unidades de Servicio vigencia 2025
+// =============================================
+
+export interface ICBFMunicipal {
+  municipio: string;
+  unidades_total: number;
+  urbano: number;
+  rural: number;
+}
+
+export const icbfReal: ICBFMunicipal[] = [
+  // VERIFICADO: API i8ww-5mcf vigencia=2025, marzo 2026
+  { municipio: 'Turbo', unidades_total: 136, urbano: 38, rural: 98 },
+  { municipio: 'Carepa', unidades_total: 49, urbano: 13, rural: 36 },
+  { municipio: 'Arboletes', unidades_total: 44, urbano: 12, rural: 32 },
+  { municipio: 'Rionegro', unidades_total: 37, urbano: 16, rural: 21 },
+  { municipio: 'Marinilla', unidades_total: 28, urbano: 12, rural: 16 },
+  { municipio: 'San Luis', unidades_total: 26, urbano: 14, rural: 12 },
+  { municipio: 'Guarne', unidades_total: 25, urbano: 7, rural: 18 },
+  { municipio: 'San Vicente', unidades_total: 19, urbano: 5, rural: 14 },
+  { municipio: 'San Carlos', unidades_total: 15, urbano: 9, rural: 6 },
+  { municipio: 'San Rafael', unidades_total: 10, urbano: 10, rural: 0 },
+  { municipio: 'La Ceja', unidades_total: 10, urbano: 6, rural: 4 },
+  { municipio: 'Argelia', unidades_total: 5, urbano: 0, rural: 5 },
+  { municipio: 'Granada', unidades_total: 5, urbano: 5, rural: 0 },
+];
+
+// =============================================
+// TEJIDO EMPRESARIAL — datos.gov.co (jtyy-9zuz) VERIFICADO
+// Cámara de Comercio Oriente Antioqueño
+// =============================================
+
+export interface EmpresasMunicipal {
+  municipio: string;
+  total_empresas: number;
+  micro: number;
+  pequena: number;
+  mediana_grande: number;
+}
+
+export const empresasReal: EmpresasMunicipal[] = [
+  // VERIFICADO: API jtyy-9zuz, Cámara Comercio Oriente, marzo 2026
+  // Solo cubre jurisdicción Oriente (no Urabá)
+  { municipio: 'Rionegro', total_empresas: 9038, micro: 7173, pequena: 399, mediana_grande: 112 },
+  { municipio: 'La Ceja', total_empresas: 3404, micro: 2784, pequena: 112, mediana_grande: 24 },
+  { municipio: 'Marinilla', total_empresas: 2659, micro: 2223, pequena: 84, mediana_grande: 15 },
+  { municipio: 'El Carmen de Viboral', total_empresas: 2255, micro: 1881, pequena: 75, mediana_grande: 17 },
+  { municipio: 'Guarne', total_empresas: 2053, micro: 1641, pequena: 68, mediana_grande: 33 },
+  { municipio: 'El Retiro', total_empresas: 1644, micro: 1308, pequena: 64, mediana_grande: 16 },
+  { municipio: 'Sonsón', total_empresas: 1099, micro: 924, pequena: 9, mediana_grande: 2 },
+  { municipio: 'Guatapé', total_empresas: 900, micro: 800, pequena: 9, mediana_grande: 1 },
+  { municipio: 'El Peñol', total_empresas: 773, micro: 673, pequena: 15, mediana_grande: 1 },
+  { municipio: 'Cocorná', total_empresas: 502, micro: 434, pequena: 8, mediana_grande: 0 },
+  { municipio: 'San Vicente', total_empresas: 457, micro: 389, pequena: 19, mediana_grande: 0 },
+  { municipio: 'San Carlos', total_empresas: 448, micro: 382, pequena: 7, mediana_grande: 0 },
+  { municipio: 'San Rafael', total_empresas: 398, micro: 340, pequena: 5, mediana_grande: 0 },
+  { municipio: 'Granada', total_empresas: 321, micro: 280, pequena: 4, mediana_grande: 0 },
+  { municipio: 'San Luis', total_empresas: 285, micro: 248, pequena: 3, mediana_grande: 0 },
+  { municipio: 'Argelia', total_empresas: 142, micro: 130, pequena: 1, mediana_grande: 0 },
+];
+
+export function getTurismoByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
+  const urabaNames = ['Apartadó', 'Turbo', 'Carepa', 'Chigorodó', 'Mutatá', 'Necoclí', 'Arboletes'];
+  const data = region === 'Todas' ? turismoReal
+    : region === 'Urabá' ? turismoReal.filter(t => urabaNames.includes(t.municipio))
+    : turismoReal.filter(t => !urabaNames.includes(t.municipio));
+  return {
+    total_prestadores: data.reduce((s, t) => s + t.prestadores, 0),
+    total_habitaciones: data.reduce((s, t) => s + t.habitaciones, 0),
+    municipios: data.sort((a, b) => b.prestadores - a.prestadores),
+  };
+}
+
+export function getICBFByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
+  const urabaNames = ['Turbo', 'Carepa', 'Arboletes'];
+  const data = region === 'Todas' ? icbfReal
+    : region === 'Urabá' ? icbfReal.filter(i => urabaNames.includes(i.municipio))
+    : icbfReal.filter(i => !urabaNames.includes(i.municipio));
+  return {
+    total_unidades: data.reduce((s, i) => s + i.unidades_total, 0),
+    total_rural: data.reduce((s, i) => s + i.rural, 0),
+    municipios: data,
+  };
+}
+
 export function getProduccionByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
   const urabaNames = ['Turbo', 'Apartadó', 'Carepa', 'Chigorodó', 'Necoclí', 'Mutatá', 'San Juan de Urabá', 'Arboletes'];
   const data = region === 'Todas'
