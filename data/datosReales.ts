@@ -389,6 +389,124 @@ export function getICBFByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
   };
 }
 
+// =============================================
+// GAS EPM — Plan Territorial Urabá/Oriente (VERIFICADO)
+// Datos exactos por municipio: km red, inversión, clientes, penetración
+// =============================================
+
+export interface GasMunicipal {
+  municipio: string;
+  km_red: number;
+  inversion_millones: number;
+  clientes_potenciales: number;
+  clientes_conectados: number;
+  penetracion_pct: number;
+}
+
+export const gasEPM: GasMunicipal[] = [
+  // Urabá — Plan Territorial Urabá p.38 (vigencias 2012-2024)
+  { municipio: 'Turbo', km_red: 311, inversion_millones: 15960, clientes_potenciales: 26366, clientes_conectados: 21107, penetracion_pct: 80 },
+  { municipio: 'Apartadó', km_red: 224, inversion_millones: 10740, clientes_potenciales: 31464, clientes_conectados: 26004, penetracion_pct: 83 },
+  { municipio: 'Carepa', km_red: 89, inversion_millones: 4350, clientes_potenciales: 11015, clientes_conectados: 9587, penetracion_pct: 87 },
+  { municipio: 'Chigorodó', km_red: 121, inversion_millones: 3910, clientes_potenciales: 15306, clientes_conectados: 13193, penetracion_pct: 86 },
+  { municipio: 'San Pedro de Urabá', km_red: 71, inversion_millones: 3100, clientes_potenciales: 3896, clientes_conectados: 3206, penetracion_pct: 82 },
+  { municipio: 'San Juan de Urabá', km_red: 6, inversion_millones: 2350, clientes_potenciales: 2558, clientes_conectados: 2118, penetracion_pct: 83 },
+  { municipio: 'Mutatá', km_red: 19, inversion_millones: 1180, clientes_potenciales: 1591, clientes_conectados: 1296, penetracion_pct: 81 },
+  { municipio: 'Arboletes', km_red: 12, inversion_millones: 665, clientes_potenciales: 3968, clientes_conectados: 3366, penetracion_pct: 85 },
+  { municipio: 'Necoclí', km_red: 12, inversion_millones: 629, clientes_potenciales: 3458, clientes_conectados: 2622, penetracion_pct: 76 },
+  // Oriente — Plan Territorial Oriente p.55-58
+  { municipio: 'La Ceja', km_red: 140.1, inversion_millones: 6017, clientes_potenciales: 19854, clientes_conectados: 11568, penetracion_pct: 58 },
+  { municipio: 'Sonsón', km_red: 54.1, inversion_millones: 2054, clientes_potenciales: 5916, clientes_conectados: 4802, penetracion_pct: 78 },
+  { municipio: 'Guarne', km_red: 41.3, inversion_millones: 2413, clientes_potenciales: 820, clientes_conectados: 595, penetracion_pct: 68 },
+  { municipio: 'El Retiro', km_red: 47.9, inversion_millones: 2252, clientes_potenciales: 6159, clientes_conectados: 5234, penetracion_pct: 85 },
+  { municipio: 'Rionegro', km_red: 44.4, inversion_millones: 2310, clientes_potenciales: 98, clientes_conectados: 36, penetracion_pct: 82 },
+  { municipio: 'San Vicente', km_red: 34.1, inversion_millones: 1780, clientes_potenciales: 2336, clientes_conectados: 1894, penetracion_pct: 81 },
+  { municipio: 'El Peñol', km_red: 34.9, inversion_millones: 1723, clientes_potenciales: 4764, clientes_conectados: 4562, penetracion_pct: 96 },
+  { municipio: 'La Unión', km_red: 33.7, inversion_millones: 1370, clientes_potenciales: 4050, clientes_conectados: 3411, penetracion_pct: 84 },
+  { municipio: 'Concepción', km_red: 26.3, inversion_millones: 1316, clientes_potenciales: 941, clientes_conectados: 706, penetracion_pct: 79 },
+  { municipio: 'Guatapé', km_red: 27.3, inversion_millones: 1035, clientes_potenciales: 1041, clientes_conectados: 2898, penetracion_pct: 95 },
+  { municipio: 'San Carlos', km_red: 21.8, inversion_millones: 879, clientes_potenciales: 3375, clientes_conectados: 2332, penetracion_pct: 69 },
+  { municipio: 'San Rafael', km_red: 22.6, inversion_millones: 802, clientes_potenciales: 3361, clientes_conectados: 2527, penetracion_pct: 75 },
+  { municipio: 'San Luis', km_red: 17.6, inversion_millones: 755, clientes_potenciales: 3041, clientes_conectados: 2578, penetracion_pct: 85 },
+  { municipio: 'Cocorná', km_red: 18.4, inversion_millones: 731, clientes_potenciales: 3326, clientes_conectados: 2122, penetracion_pct: 66 },
+  { municipio: 'Granada', km_red: 13.9, inversion_millones: 581, clientes_potenciales: 3028, clientes_conectados: 1475, penetracion_pct: 49 },
+];
+
+// Municipios SIN gas: Argelia, Nariño, Alejandría, San Francisco (Plan Territorial Oriente)
+
+// =============================================
+// MEGA-PROYECTOS INFRAESTRUCTURA URABÁ — Plan Territorial
+// =============================================
+
+export interface MegaProyecto {
+  nombre: string;
+  valor_millones: number;
+  estado: string;
+  municipio: string;
+  tipo: string;
+}
+
+export const megaProyectosUraba: MegaProyecto[] = [
+  { nombre: 'Túnel del Toyo Tramo I', valor_millones: 770000, estado: '94% ejecutado', municipio: 'Regional', tipo: 'Vías' },
+  { nombre: 'Túnel del Toyo Tramo II', valor_millones: 660000, estado: '50% entregado', municipio: 'Regional', tipo: 'Vías' },
+  { nombre: 'Plan Maestro Currulao (alcantarillado)', valor_millones: 82713, estado: 'En ejecución', municipio: 'Turbo', tipo: 'Agua' },
+  { nombre: 'Pavimento Coldesa - Nuevo Antioquia', valor_millones: 85101, estado: 'En ejecución', municipio: 'Turbo', tipo: 'Vías' },
+  { nombre: 'Hospital Antonio Roldán Betancur', valor_millones: 48000, estado: 'Proyectado', municipio: 'Apartadó', tipo: 'Salud' },
+  { nombre: 'PTAR Turbo', valor_millones: 38281, estado: 'En ejecución', municipio: 'Turbo', tipo: 'Agua' },
+  { nombre: 'Subestación Urabá 110kV', valor_millones: 27894, estado: 'En ejecución', municipio: 'Apartadó', tipo: 'Energía' },
+  { nombre: 'Puente Peatonal Av. Germán Lopera', valor_millones: 24000, estado: 'Proyectado', municipio: 'Turbo', tipo: 'Vías' },
+  { nombre: 'Hospital Chigorodó', valor_millones: 18000, estado: 'Proyectado', municipio: 'Chigorodó', tipo: 'Salud' },
+  { nombre: 'SABLE acueducto urbano (estudios)', valor_millones: 17532, estado: 'En diseño', municipio: 'Apartadó', tipo: 'Agua' },
+  { nombre: 'Hospital Maria Auxiliadora nueva sede', valor_millones: 17000, estado: 'Proyectado', municipio: 'Regional', tipo: 'Salud' },
+  { nombre: 'Programa ALDEAS escuelas indígenas 2025', valor_millones: 15000, estado: 'En ejecución', municipio: 'Regional', tipo: 'Educación' },
+  { nombre: 'Subestación Chigorodó', valor_millones: 11988, estado: 'Terminado 2022', municipio: 'Chigorodó', tipo: 'Energía' },
+  { nombre: 'Base Náutica Necoclí', valor_millones: 5896, estado: 'Proyectado', municipio: 'Necoclí', tipo: 'Turismo' },
+  { nombre: 'Malecón Turístico Turbo fase 2', valor_millones: 5898, estado: 'En ejecución', municipio: 'Turbo', tipo: 'Turismo' },
+];
+
+// =============================================
+// GENERACIÓN ENERGÍA ORIENTE — Plan Territorial
+// =============================================
+export const generacionOriente = {
+  potencia_instalada_mw: 787.5,
+  participacion_nacional: 0.26, // 26% de la energía nacional
+  participacion_departamental: 0.68, // 68% del total departamental
+  centrales: [
+    { nombre: 'Central Guatapé', potencia_mw: 560, año_operacion: '1971/1979', municipio: 'Guatapé' },
+    { nombre: 'Central Playas', potencia_mw: 207, año_operacion: '1988', municipio: 'San Carlos' },
+    { nombre: 'Central Sonsón I', potencia_mw: 8.5, año_operacion: '1965', municipio: 'Sonsón' },
+    { nombre: 'Central Sonsón II', potencia_mw: 12, año_operacion: '2001', municipio: 'Sonsón' },
+  ],
+  proyectos_licencia_mw: 154,
+  proyectos_esperados_mw: 56, // Santo Domingo
+};
+
+// =============================================
+// EMPRESAS URABÁ — Cámara de Comercio Urabá 2024 (Plan Territorial)
+// =============================================
+
+export const empresasUraba: { municipio: string; empresas_2024: number; variacion_pct: number }[] = [
+  { municipio: 'Apartadó', empresas_2024: 4824, variacion_pct: 3.32 },
+  { municipio: 'Turbo', empresas_2024: 2600, variacion_pct: 3.26 },
+  { municipio: 'Chigorodó', empresas_2024: 1560, variacion_pct: 10.40 },
+  { municipio: 'Carepa', empresas_2024: 1253, variacion_pct: 1.13 },
+  { municipio: 'Necoclí', empresas_2024: 1248, variacion_pct: 6.85 },
+  { municipio: 'San Pedro de Urabá', empresas_2024: 549, variacion_pct: 10.87 },
+  { municipio: 'Arboletes', empresas_2024: 423, variacion_pct: 4.70 },
+  { municipio: 'Mutatá', empresas_2024: 357, variacion_pct: -0.83 },
+  { municipio: 'San Juan de Urabá', empresas_2024: 268, variacion_pct: 8.50 },
+];
+
+// =============================================
+// MIGRANTES EN TRÁNSITO — Plan Territorial Urabá
+// =============================================
+export const migrantesUraba = {
+  año_2023: { necocli: 102268, turbo: 343112, total: 445380 },
+  año_2024: { necocli: 64001, turbo: 205700, total: 269701 },
+  reduccion_pct: 40,
+  represamiento_max_necocli: 22000,
+};
+
 export function getProduccionByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
   const urabaNames = ['Turbo', 'Apartadó', 'Carepa', 'Chigorodó', 'Necoclí', 'Mutatá', 'San Juan de Urabá', 'Arboletes'];
   const data = region === 'Todas'
