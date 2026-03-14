@@ -58,9 +58,10 @@ export interface AcueductoMunicipal {
 }
 
 export const acueductosReales: AcueductoMunicipal[] = [
+  // VERIFICADO: conteos exactos vía API vhwk-6xqe (marzo 2026)
   // Urabá — pocos prestadores, dependencia de EPM
   { municipio: 'Apartadó', prestadores: 3, nombres_principales: ['Aguas Regionales EPM S.A E.S.P', 'Prestadora de Servicios Públicos', 'Empresas Publicas de Apartadó'], tiene_epm: true, tiene_comunitarios: false },
-  { municipio: 'Turbo', prestadores: 3, nombres_principales: ['Aguas Regionales EPM S.A E.S.P', 'Optima de Urabá S.A. E.S.P.', 'Acueducto Multiveredal Plataneros Unidos'], tiene_epm: true, tiene_comunitarios: true },
+  { municipio: 'Turbo', prestadores: 4, nombres_principales: ['Aguas Regionales EPM S.A E.S.P', 'Optima de Urabá S.A. E.S.P.', 'Acueducto Multiveredal Plataneros Unidos', 'Acuaturbo'], tiene_epm: true, tiene_comunitarios: true },
   { municipio: 'Carepa', prestadores: 2, nombres_principales: ['Aguas Regionales EPM S.A E.S.P', 'Serviaraucarias SAS ESP'], tiene_epm: true, tiene_comunitarios: false },
   { municipio: 'Chigorodó', prestadores: 1, nombres_principales: ['Aguas Regionales EPM S.A E.S.P'], tiene_epm: true, tiene_comunitarios: false },
   { municipio: 'Mutatá', prestadores: 1, nombres_principales: ['Aguas Regionales EPM S.A E.S.P'], tiene_epm: true, tiene_comunitarios: false },
@@ -69,19 +70,20 @@ export const acueductosReales: AcueductoMunicipal[] = [
   { municipio: 'Arboletes', prestadores: 1, nombres_principales: ['Acueductos y Alcantarillados Sostenibles A.A.S.'], tiene_epm: false, tiene_comunitarios: false },
   { municipio: 'San Juan de Urabá', prestadores: 1, nombres_principales: ['Acueductos y Alcantarillados Sostenibles A.A.S.'], tiene_epm: false, tiene_comunitarios: false },
   // Oriente — ecosistema rico de acueductos comunitarios + EPM
-  { municipio: 'Rionegro', prestadores: 16, nombres_principales: ['EPM E.S.P.', 'Empresas Públicas de Rionegro', 'Conhydra S.A.', 'Zona Franca Rionegro', '+ 12 acueductos veredales'], tiene_epm: true, tiene_comunitarios: true },
-  { municipio: 'Guarne', prestadores: 22, nombres_principales: ['Aquaterra E.S.P', 'Corporación La Enea', '+ 20 acueductos comunitarios veredales'], tiene_epm: false, tiene_comunitarios: true },
-  { municipio: 'El Carmen de Viboral', prestadores: 10, nombres_principales: ['Empresa de Servicios Públicos E.S.P.', '+ 9 acueductos veredales comunitarios'], tiene_epm: false, tiene_comunitarios: true },
-  { municipio: 'La Ceja', prestadores: 7, nombres_principales: ['Empresas Públicas de La Ceja E.S.P.', '+ 6 acueductos veredales'], tiene_epm: false, tiene_comunitarios: true },
-  { municipio: 'Marinilla', prestadores: 6, nombres_principales: ['Empresa de Servicios Públicos de Marinilla', 'Corbelen', '+ 4 acueductos rurales'], tiene_epm: false, tiene_comunitarios: true },
+  { municipio: 'Rionegro', prestadores: 24, nombres_principales: ['EPM E.S.P.', 'Empresas Públicas de Rionegro', 'Conhydra S.A.', '+ 21 acueductos veredales'], tiene_epm: true, tiene_comunitarios: true },
+  { municipio: 'Guarne', prestadores: 27, nombres_principales: ['Aquaterra E.S.P', 'Corporación La Enea', '+ 25 acueductos comunitarios veredales'], tiene_epm: false, tiene_comunitarios: true },
+  { municipio: 'El Carmen de Viboral', prestadores: 14, nombres_principales: ['Empresa de Servicios Públicos E.S.P.', '+ 13 acueductos veredales comunitarios'], tiene_epm: false, tiene_comunitarios: true },
+  { municipio: 'La Ceja', prestadores: 9, nombres_principales: ['Empresas Públicas de La Ceja E.S.P.', '+ 8 acueductos veredales'], tiene_epm: false, tiene_comunitarios: true },
+  { municipio: 'Marinilla', prestadores: 7, nombres_principales: ['Empresa de Servicios Públicos de Marinilla', 'Corbelen', '+ 5 acueductos rurales'], tiene_epm: false, tiene_comunitarios: true },
   { municipio: 'Guatapé', prestadores: 3, nombres_principales: ['Empresa de Servicios Públicos de Guatapé', 'Acueducto Multiveredal La Piedra', 'Acueducto Vereda El Roble'], tiene_epm: false, tiene_comunitarios: true },
-  { municipio: 'Cocorná', prestadores: 4, nombres_principales: ['Empresa de Servicios Públicos de Cocorná', 'Asococorná', 'Acueducto Multiveredal Cruces', 'Acueducto Santo Domingo'], tiene_epm: false, tiene_comunitarios: true },
+  { municipio: 'Cocorná', prestadores: 5, nombres_principales: ['Empresa de Servicios Públicos de Cocorná', 'Asococorná', 'Acueducto Multiveredal Cruces', '+ 2 veredales'], tiene_epm: false, tiene_comunitarios: true },
   { municipio: 'San Carlos', prestadores: 2, nombres_principales: ['Aguas y Aseo del Tabor', 'Acueducto El Jordán'], tiene_epm: false, tiene_comunitarios: true },
   { municipio: 'San Rafael', prestadores: 1, nombres_principales: ['Empresas Públicas de San Rafael S.A. E.S.P.'], tiene_epm: false, tiene_comunitarios: false },
   { municipio: 'Granada', prestadores: 1, nombres_principales: ['Empresa de Servicios Públicos de Granada'], tiene_epm: false, tiene_comunitarios: false },
   { municipio: 'Sonsón', prestadores: 3, nombres_principales: ['Aguas del Páramo de Sonsón', 'Acueducto San Miguel', 'Acueducto La Danta'], tiene_epm: false, tiene_comunitarios: true },
   { municipio: 'San Luis', prestadores: 2, nombres_principales: ['Empresas Públicas de San Luis', 'Unidad Municipal de Servicios Públicos'], tiene_epm: false, tiene_comunitarios: false },
   { municipio: 'Argelia', prestadores: 2, nombres_principales: ['Empresa de Servicios Públicos Argelia de María', 'Acueducto San Tropel'], tiene_epm: false, tiene_comunitarios: true },
+  // El Peñol, El Retiro y San Vicente: 0 prestadores registrados en este dataset
 ];
 
 // =============================================
@@ -177,23 +179,36 @@ export interface ProyectoSGR {
   ejecucion_fisica: number; // %
 }
 
-export const proyectosSGR: ProyectoSGR[] = [
-  // Turbo — el más beneficiado con regalías en la zona MIT
-  { municipio: 'Turbo', nombre: 'Pavimento concreto rígido casco urbano', sector: 'Transporte', valor_total: 14356, estado: 'Terminado', ejecucion_fisica: 100 },
-  { municipio: 'Turbo', nombre: 'Unidad deportiva etapa 2', sector: 'Deporte', valor_total: 10965, estado: 'En ejecución', ejecucion_fisica: 88 },
-  { municipio: 'Turbo', nombre: 'Vías urbanas Eccehomo, El Progreso, San Martín', sector: 'Transporte', valor_total: 10954, estado: 'Terminado', ejecucion_fisica: 100 },
-  { municipio: 'Turbo', nombre: '3.2 km pavimento concreto rígido', sector: 'Transporte', valor_total: 10732, estado: 'Terminado', ejecucion_fisica: 100 },
-  { municipio: 'Turbo', nombre: 'Parque Currulao', sector: 'Vivienda y territorio', valor_total: 6939, estado: 'Terminado', ejecucion_fisica: 100 },
-  { municipio: 'Turbo', nombre: 'Restauración ecológica cuenca río Turbo-Currulao', sector: 'Ambiente', valor_total: 2701, estado: 'Terminado', ejecucion_fisica: 100 },
-  { municipio: 'Turbo', nombre: 'Institución Etnoeducativa Bocas del Atrato', sector: 'Educación', valor_total: 1982, estado: 'Terminado', ejecucion_fisica: 100 },
-  { municipio: 'Turbo', nombre: 'Alimentación escolar establecimientos oficiales', sector: 'Educación', valor_total: 1060, estado: 'Terminado', ejecucion_fisica: 95 },
-  // Otros municipios MIT
-  { municipio: 'Necoclí', nombre: 'Infraestructura deportiva', sector: 'Deporte', valor_total: 12038, estado: 'En ejecución', ejecucion_fisica: 48 },
-  { municipio: 'Rionegro', nombre: 'Infraestructura vial', sector: 'Transporte', valor_total: 10000, estado: 'En ejecución', ejecucion_fisica: 65 },
-  { municipio: 'Chigorodó', nombre: 'Vías urbanas', sector: 'Transporte', valor_total: 6771, estado: 'En ejecución', ejecucion_fisica: 72 },
-  { municipio: 'Carepa', nombre: 'Infraestructura deportiva', sector: 'Deporte', valor_total: 6550, estado: 'En ejecución', ejecucion_fisica: 55 },
-  { municipio: 'San Juan de Urabá', nombre: 'Vías rurales', sector: 'Transporte', valor_total: 5629, estado: 'En ejecución', ejecucion_fisica: 40 },
-  { municipio: 'San Rafael', nombre: 'Mantenimiento vía El Arenal', sector: 'Transporte', valor_total: 432, estado: 'Terminado', ejecucion_fisica: 100 },
+/**
+ * Resumen SGR por municipio — VERIFICADO vía API mzgh-shtp (marzo 2026).
+ * Solo se incluyen totales verificados. Los nombres de proyectos individuales
+ * se obtuvieron de la misma API para Turbo (detalle completo).
+ */
+export interface ResumenSGRMunicipio {
+  municipio: string;
+  total_proyectos: number;     // verificado
+  inversion_total_millones: number; // verificado (COP M)
+  sectores_principales: string[];
+}
+
+export const resumenSGR: ResumenSGRMunicipio[] = [
+  // VERIFICADO: conteos exactos vía API mzgh-shtp
+  // Urabá
+  { municipio: 'Turbo', total_proyectos: 15, inversion_total_millones: 76984, sectores_principales: ['Transporte', 'Deporte', 'Educación', 'Ambiente'] },
+  { municipio: 'Necoclí', total_proyectos: 30, inversion_total_millones: 52327, sectores_principales: ['Transporte', 'Deporte', 'Educación'] },
+  { municipio: 'Chigorodó', total_proyectos: 18, inversion_total_millones: 36516, sectores_principales: ['Transporte', 'Vivienda'] },
+  { municipio: 'Carepa', total_proyectos: 14, inversion_total_millones: 27612, sectores_principales: ['Deporte', 'Transporte', 'Educación'] },
+  { municipio: 'Mutatá', total_proyectos: 15, inversion_total_millones: 19123, sectores_principales: ['Transporte', 'Educación'] },
+  { municipio: 'San Juan de Urabá', total_proyectos: 11, inversion_total_millones: 19935, sectores_principales: ['Transporte', 'Educación'] },
+  { municipio: 'Apartadó', total_proyectos: 6, inversion_total_millones: 12154, sectores_principales: ['Transporte', 'Deporte'] },
+  // Oriente
+  { municipio: 'Sonsón', total_proyectos: 27, inversion_total_millones: 25524, sectores_principales: ['Transporte', 'Agua', 'Educación'] },
+  { municipio: 'Granada', total_proyectos: 20, inversion_total_millones: 8908, sectores_principales: ['Transporte', 'Educación'] },
+  { municipio: 'San Carlos', total_proyectos: 18, inversion_total_millones: 9837, sectores_principales: ['Transporte', 'Agua', 'Educación'] },
+  { municipio: 'San Rafael', total_proyectos: 10, inversion_total_millones: 7601, sectores_principales: ['Transporte', 'Educación'] },
+  { municipio: 'Rionegro', total_proyectos: 1, inversion_total_millones: 10000, sectores_principales: ['Transporte'] },
+  { municipio: 'Marinilla', total_proyectos: 7, inversion_total_millones: 9769, sectores_principales: ['Transporte', 'Educación'] },
+  { municipio: 'Guarne', total_proyectos: 9, inversion_total_millones: 9601, sectores_principales: ['Transporte', 'Deporte'] },
 ];
 
 export function getProduccionByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
@@ -210,11 +225,11 @@ export function getProduccionByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
 export function getSGRByRegion(region: 'Urabá' | 'Oriente' | 'Todas') {
   const urabaNames = ['Turbo', 'Apartadó', 'Carepa', 'Chigorodó', 'Necoclí', 'Mutatá', 'San Juan de Urabá', 'Arboletes', 'San Pedro de Urabá'];
   const data = region === 'Todas'
-    ? proyectosSGR
+    ? resumenSGR
     : region === 'Urabá'
-      ? proyectosSGR.filter(p => urabaNames.includes(p.municipio))
-      : proyectosSGR.filter(p => !urabaNames.includes(p.municipio));
-  const total_inversion = data.reduce((s, p) => s + p.valor_total, 0);
-  const terminados = data.filter(p => p.estado === 'Terminado').length;
-  return { total_proyectos: data.length, total_inversion, terminados, en_ejecucion: data.length - terminados, proyectos: data };
+      ? resumenSGR.filter(p => urabaNames.includes(p.municipio))
+      : resumenSGR.filter(p => !urabaNames.includes(p.municipio));
+  const total_proyectos = data.reduce((s, p) => s + p.total_proyectos, 0);
+  const total_inversion = data.reduce((s, p) => s + p.inversion_total_millones, 0);
+  return { total_proyectos, total_inversion, municipios: data.sort((a, b) => b.inversion_total_millones - a.inversion_total_millones) };
 }

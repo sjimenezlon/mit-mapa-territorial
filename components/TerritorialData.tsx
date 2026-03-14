@@ -197,31 +197,25 @@ export default function TerritorialData({ region }: Props) {
         <p className="text-[8px] font-mono uppercase tracking-wider text-purple-400/70 mb-2">
           Proyectos de Regalías SGR (DNP)
         </p>
-        <div className="grid grid-cols-3 gap-1.5 mb-2">
-          <StatCard label="Proyectos" value={sgr.total_proyectos} color="#8B5CF6" />
-          <StatCard label="Inversión" value={`$${(sgr.total_inversion / 1000).toFixed(0)}k M`} sub="COP millones" color="#8B5CF6" />
-          <StatCard label="Terminados" value={`${sgr.terminados}/${sgr.total_proyectos}`} color={sgr.terminados > sgr.en_ejecucion ? '#00A651' : '#F7941D'} />
+        <div className="grid grid-cols-2 gap-1.5 mb-2">
+          <StatCard label="Proyectos SGR" value={sgr.total_proyectos} color="#8B5CF6" />
+          <StatCard label="Inversión total" value={`$${(sgr.total_inversion / 1000).toFixed(0)}k M`} sub="COP millones" color="#8B5CF6" />
         </div>
         <div className="space-y-1 mb-1.5">
-          {sgr.proyectos.slice(0, 4).map((p, i) => (
-            <div key={i} className="flex items-start gap-1.5">
-              <div className={`w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0 ${p.estado === 'Terminado' ? 'bg-epm-green' : 'bg-epm-orange'}`} />
-              <div className="flex-1 min-w-0">
-                <p className="text-[8px] text-gray-300 truncate">{p.nombre}</p>
-                <p className="text-[7px] text-gray-500">{p.municipio} · {p.sector} · COP ${p.valor_total.toLocaleString('es-CO')}M</p>
-              </div>
+          {sgr.municipios.slice(0, 6).map(m => (
+            <div key={m.municipio} className="flex items-center gap-1.5">
+              <span className="text-[9px] text-gray-400 flex-1 truncate">{m.municipio}</span>
+              <span className="text-[7px] text-gray-500">{m.total_proyectos} proy.</span>
+              <span className="text-[9px] font-mono font-bold text-purple-400">${(m.inversion_total_millones / 1000).toFixed(0)}k M</span>
             </div>
           ))}
-          {sgr.proyectos.length > 4 && (
-            <p className="text-[7px] text-gray-600 ml-3">+{sgr.proyectos.length - 4} proyectos más</p>
-          )}
         </div>
         <p className="text-[7px] text-gray-600 leading-relaxed italic">
           {region === 'Urabá'
-            ? 'Turbo concentra $60k M en regalías — 80% en vías. Refleja déficit histórico de infraestructura básica.'
+            ? 'Urabá recibe $244k M en SGR. Necoclí lidera con 30 proyectos ($52k M). Transporte y deporte dominan los sectores.'
             : region === 'Oriente'
-              ? 'Oriente recibe menos regalías que Urabá. Su desarrollo se financia más con recursos propios y EPM.'
-              : 'Turbo recibe 6x más regalías que cualquier otro municipio MIT. Casi todo en vías y deporte — poco en agua o educación.'
+              ? 'Oriente: $81k M en SGR. Sonsón lidera (27 proyectos). Rionegro apenas tiene 1 proyecto SGR — se financia con recursos propios.'
+              : 'Urabá recibe 3x más regalías ($244k M vs $81k M Oriente). Necoclí: 30 proyectos. Rionegro: solo 1.'
           }
         </p>
       </div>
