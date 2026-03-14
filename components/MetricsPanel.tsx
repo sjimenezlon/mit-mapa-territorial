@@ -192,7 +192,7 @@ export default function MetricsPanel({ proyectos, actores, region }: Props) {
           </div>
           <div>
             <h3 className="text-[10px] font-bold text-white">Contexto Territorial</h3>
-            <p className="text-[7px] font-mono uppercase tracking-[0.15em] text-gray-500">DANE · DNP · TerriData</p>
+            <p className="text-[7px] font-mono uppercase tracking-[0.15em] text-epm-orange/60">DANE CNPV 2018 · Estimaciones</p>
           </div>
         </div>
 

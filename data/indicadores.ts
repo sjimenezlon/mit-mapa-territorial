@@ -1,8 +1,19 @@
 /**
  * Indicadores socioeconómicos y de calidad de vida por municipio.
- * Fuentes: DANE (Censo 2018, proyecciones 2024), DNP (TerriData),
- * Medición de Pobreza Multidimensional, SISBEN IV.
- * Valores aproximados con fines de visualización.
+ *
+ * ⚠️ NOTA DE TRANSPARENCIA:
+ * Estos datos son ESTIMACIONES basadas en fuentes secundarias.
+ * DNP TerriData NO tiene API pública — es una app Angular cerrada.
+ * Los valores se obtuvieron de:
+ *   - DANE CNPV 2018 (Censo Nacional Población y Vivienda) — publicaciones PDF
+ *   - DNP TerriData — consultado manualmente vía web (fichas municipales)
+ *   - DANE proyecciones poblacionales 2024
+ *   - Gobernación de Antioquia — Anuario Estadístico
+ *
+ * Para datos 100% verificables vía API, consultar data/datosReales.ts
+ * que tiene datasets consultados en vivo contra datos.gov.co.
+ *
+ * Fuente de verificación manual: https://terridata.dnp.gov.co
  */
 
 export interface IndicadorMunicipal {
